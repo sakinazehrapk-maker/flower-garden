@@ -1,24 +1,19 @@
 const garden = document.getElementById("garden");
 const plantBtn = document.getElementById("plantBtn");
+const waterBtn = document.getElementById("waterBtn");
+const countDisplay = document.getElementById("count");
 
-plantBtn.addEventListener("click", () => {
-    const flower = document.createElement("div");
-    flower.classList.add("flower");
-    flower.textContent = "🌱";
-    garden.appendChild(flower);
-    setTimeout(() => {
-        flower.textContent = "🌿";
-    }, 3000);
-    setTimeout(() => {
-        flower.textContent = "🌷";
-    }, 6000);
-});
-const flower = document.createElement("div");
-flower.textContent = "🌱";
-flower.dataset.stage = "seed";
-
- 
 const flowers = [];
+const flowerTypes = [
+    "🌷",
+    "🌹",
+    "🌻",
+    "🌼",
+    "🪻",
+    "🌺",
+    "💐"
+];
+let flowerCount = 0;
 plantBtn.addEventListener("click", () => {
     const flower = document.createElement("div");
     flower.classList.add("flower");
@@ -28,11 +23,14 @@ plantBtn.addEventListener("click", () => {
 });
 waterBtn.addEventListener("click", () => {
     flowers.forEach(flower => {
-        if(flower.textContent === "🌱"){
+        if (flower.textContent === "🌱") {
             flower.textContent = "🌿";
-        }
-        else if(flower.textContent === "🌿"){
-            flower.textContent = "🌷";
+        } else if (flower.textContent === "🌿") {
+            const randomFlower =
+                flowerTypes[Math.floor(Math.random() * flowerTypes.length)];
+            flower.textContent = randomFlower;
+            flowerCount++;
+            countDisplay.textContent = flowerCount;
         }
     });
 });
