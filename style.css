@@ -1,0 +1,25 @@
+body{
+    text-align:center;
+    font-family:Arial, sans-serif;
+    background:#fdf6f9;
+}
+h1{
+    color:#d86c9d;
+}
+
+#garden{
+    width:80%;
+    margin:30px auto;
+    min-height:300px;
+    background:#9be27d;
+    border-radius:20px;
+    padding:20px;
+
+    display:flex;
+    flex-wrap:wrap;
+    gap:20px;
+    justify-content:center;
+}
+.flower{
+    font-size:40px;
+}
