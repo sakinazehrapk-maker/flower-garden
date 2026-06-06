@@ -4,6 +4,7 @@ const waterBtn = document.getElementById("waterBtn");
 const countDisplay = document.getElementById("count");
 const coinsDisplay = document.getElementById("coins");
 const album = document.getElementById("album");
+const weatherDisplay = document.getElementById("weather");
 
 let coins=
 Number(localStorage.getItem("coins"))||0;
@@ -17,6 +18,14 @@ const flowerTypes = [
     "🌺",
     "💐"
 ];
+const weatherTypes=[
+    "sunny",
+    "rainy",
+    "rainbow",
+    "storm"
+];
+
+let currentWeather="sunny";
 let flowerCount = 0;
 plantBtn.addEventListener("click", () => {
     const flower = document.createElement("div");
@@ -26,21 +35,21 @@ plantBtn.addEventListener("click", () => {
     flowers.push(flower);
 });
 waterBtn.addEventListener("click", () => {
-    flowers.forEach(flower => {
-        if (flower.textContent=== "🌱") {
-            flower.textContent= "🌿";
-        } else if (flower.textContent=== "🌿") {
-            const randomFlower=
-                flowerTypes[Math.floor(Math.random() * flowerTypes.length)];
-            flower.textContent=randomFlower;
-            if (!discoveredFlowers.includes(randomFlower)) {
-                discoveredFlowers.push(randomFlower);
-                updateAlbum();
-                saveGame();
+    flowers.forEach(flower=>{
+        if(flower.textContent==="🌱"){
+            if(currentWeather==="rainy"){
+                flower.textContent="🌿";
             }
+        }else if(flower.textContent==="🌿"){
+            const randomFlower=
+            flowerTypes[Math.flower(Math.random()*flowerTypes.length)];
+            flower.textContent=randomFlower;
             flowerCount++;
             countDisplay.textContent=flowerCount;
-            coins += 10;
+            coins +=10;
+            if(currentWeather==="rainbow"){
+                coins+=10;
+            }
             coinsDisplay.textContent=coins;
             saveGame();
         }
@@ -98,3 +107,10 @@ if (savedGarden){
         flowers.push(flower);
     });
 }
+
+function changeWeather(){
+    currentWeather=
+        weatherTypes[Math.floor(Math.random()* weatherTypes.length)];
+    weatherDisplay.textContent = currentWeather;
+}
+setInterval(changeWeather,10000);
