@@ -5,6 +5,12 @@ const countDisplay = document.getElementById("count");
 const coinsDisplay = document.getElementById("coins");
 const album = document.getElementById("album");
 const weatherDisplay = document.getElementById("weather");
+const plotsDisplay = document.getElementById("plots");
+const expandBtn= document.getElementById("expandBtn");
+
+let plots=Number(localStorage.getItem("plots"))||1;
+plotsDisplay.textContent=plots;
+const plotCost=50;
 
 let coins=
 Number(localStorage.getItem("coins"))||0;
@@ -27,23 +33,29 @@ const weatherTypes=[
 
 let currentWeather="sunny";
 let flowerCount = 0;
-plantBtn.addEventListener("click", () => {
-    const flower = document.createElement("div");
+plantBtn.addEventListener("click",()=>{
+    if (flowers.length >= plots * 5){
+        alert("no more space! buy more garden plots please");
+        return;
+    }
+    const flower=document.createElement("div");
     flower.classList.add("flower");
-    flower.textContent = "🌱";
+    flower.textContent="🌱";
     garden.appendChild(flower);
     flowers.push(flower);
 });
 waterBtn.addEventListener("click", () => {
     flowers.forEach(flower=>{
         if(flower.textContent==="🌱"){
-            if(currentWeather==="rainy"){
-                flower.textContent="🌿";
-            }
+            flower.textContent="🌿";
         }else if(flower.textContent==="🌿"){
             const randomFlower=
-            flowerTypes[Math.flower(Math.random()*flowerTypes.length)];
+            flowerTypes[Math.floor(Math.random()*flowerTypes.length)];
             flower.textContent=randomFlower;
+            if(!discoveredFlowers.includes(randomFlower)){
+                discoveredFlowers.push(randomFlower);
+                updateAlbum();
+            }
             flowerCount++;
             countDisplay.textContent=flowerCount;
             coins +=10;
@@ -75,18 +87,10 @@ function updateAlbum() {
 }
 function saveGame(){
     localStorage.setItem("coins",coins);
-    localStorage.setItem(
-        "album",
-        JSON.stringify(discoveredFlowers)
-    );
-    const gardenData=[];
-    flowers.forEach(flower =>{
-        gardenData.push(flower.textContent);
-    });
-    localStorage.setItem(
-        "garden",
-        JSON.stringify(gardenData)
-    );
+    localStorage.setItem("album",JSON.stringify(discoveredFlowers));
+    const gardenData=flowers.map(f=>f.textContent);
+    localStorage.setItem("garden",JSON.stringify(gardenData));
+    localStorage.setItem("plots",plots);
 }
 
 const savedAlbum=
@@ -114,3 +118,14 @@ function changeWeather(){
     weatherDisplay.textContent = currentWeather;
 }
 setInterval(changeWeather,10000);
+expandBtn.addEventListener("click",()=>{
+    if (coins<plotCost){
+        alert("not enough coins!");
+        return;
+    }
+    coins-=plotCost;
+    coinsDisplay.textContent=coins;
+    plots+=1;
+    plotsDisplay.textContent=plots;
+    saveGame();
+});
