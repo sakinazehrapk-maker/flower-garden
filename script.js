@@ -7,6 +7,7 @@ const album = document.getElementById("album");
 const weatherDisplay = document.getElementById("weather");
 const plotsDisplay = document.getElementById("plots");
 const expandBtn= document.getElementById("expandBtn");
+const achievementsDiv=document.getElementById("achievements");
 
 let plots=Number(localStorage.getItem("plots"))||1;
 plotsDisplay.textContent=plots;
@@ -155,4 +156,40 @@ function getRandomFlower(){
             Math.floor(Math.random()*legendaryFlowers.length)
         ];
     }
+}
+const achievements=[];
+function unlockAchievement(name){
+    if(achievements.includes(name)){
+        return;
+    }
+    achievements.push(name);
+    alert("achievement unlocked!\n" + name);
+    updateAchievements();
+    saveGame();
+}
+function updateAchievements(){
+    if (achievements.length===0){
+        achievementsDiv.textContent=
+        "no achievements yet!";
+        return;
+    }
+    achievementsDiv.innerHTML="";
+    achievements.forEach(achievement=>{
+        const item=
+        document.createElement("div");
+        item.textContent=achievement;
+        achievementsDiv.appendChild(item);
+    });
+}
+if(flowerCount>=5){
+    unlockAchievement("beginner gardener");
+}
+if(flowerCount>=20) {
+    unlockAchievement("flower lover");
+}
+if(coins>=100){
+    unlockAchievement("rich gardener");
+}
+if(plots>=3){
+    unlockAchievement("land owner");
 }
