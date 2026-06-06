@@ -1,7 +1,8 @@
 body{
     text-align:center;
     font-family:Arial, sans-serif;
-    background:#fdf6f9;
+    transition:background 1s ease;
+    overflow-x:hidden;
 }
 h1{
     color:#d86c9d;
@@ -14,7 +15,6 @@ h1{
     background:#9be27d;
     border-radius:20px;
     padding:20px;
-
     display:flex;
     flex-wrap:wrap;
     gap:20px;
@@ -22,4 +22,53 @@ h1{
 }
 .flower{
     font-size:40px;
+}
+.sunny{
+    background:linear-gradient(#ffd6eb,#fff4fa);
+}
+
+.rainy{
+    background:linear-gradient(#5a6472,#2d3640);
+    color:white;
+}
+
+.rainbow{
+    background:linear-gradient(
+        90deg,
+        #ffb3ba,
+        #ffdfba,
+        #ffffba,
+        #baffc9,
+        #bae1ff
+    );
+}
+.storm{
+    background:linear-gradient(#1a1a1a,#4a4a4a);
+    color:white;
+}
+
+.rainy::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+
+    background:
+    repeating-linear-gradient(
+        -25deg,
+        transparent 0px,
+        transparent 25px,
+        rgba(255,255,255,0.35) 25px,
+        rgba(255,255,255,0.35) 27px
+    );
+
+    animation: rain 0.3s linear infinite;
+}
+@keyframes rain{
+    from{
+        transform: translateY(-100px);
+    }
+    to{
+        transform: translateY(100px);
+    }
 }

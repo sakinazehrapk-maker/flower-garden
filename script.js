@@ -125,11 +125,16 @@ if (savedGarden){
 }
 
 function changeWeather(){
-    currentWeather=
-        weatherTypes[Math.floor(Math.random()* weatherTypes.length)];
-    weatherDisplay.textContent = currentWeather;
+    currentWeather=weatherTypes[Math.floor(Math.random()*weatherTypes.length)];
+    weatherDisplay.textContent=currentWeather;
+    document.body.classList.remove(
+        "sunny",
+        "rainy",
+        "rainbow",
+        "storm"
+    );
+    document.body.classList.add(currentWeather);
 }
-setInterval(changeWeather,10000);
 expandBtn.addEventListener("click",()=>{
     if (coins<plotCost){
         alert("not enough coins!");
@@ -193,3 +198,5 @@ if(coins>=100){
 if(plots>=3){
     unlockAchievement("land owner");
 }
+document.body.classList.add(currentWeather);
+setInterval(changeWeather, 10000);
