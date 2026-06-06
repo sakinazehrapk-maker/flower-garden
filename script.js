@@ -16,13 +16,19 @@ let coins=
 Number(localStorage.getItem("coins"))||0;
 coinsDisplay.textContent = coins;
 const flowers = [];
-const flowerTypes = [
+const commonFlowers=[
     "🌷",
-    "🌹",
-    "🌻",
     "🌼",
-    "🌺",
-    "💐"
+    "🌻"
+];
+const rareFlowers=[
+    "🌹",
+    "🌺"
+];
+const legendaryFlowers=[
+    "💎🌸",
+    "✨🌷",
+    "🌈🌺"
 ];
 const weatherTypes=[
     "sunny",
@@ -49,8 +55,7 @@ waterBtn.addEventListener("click", () => {
         if(flower.textContent==="🌱"){
             flower.textContent="🌿";
         }else if(flower.textContent==="🌿"){
-            const randomFlower=
-            flowerTypes[Math.floor(Math.random()*flowerTypes.length)];
+            const randomFlower=getRandomFlower();
             flower.textContent=randomFlower;
             if(!discoveredFlowers.includes(randomFlower)){
                 discoveredFlowers.push(randomFlower);
@@ -58,7 +63,13 @@ waterBtn.addEventListener("click", () => {
             }
             flowerCount++;
             countDisplay.textContent=flowerCount;
-            coins +=10;
+            if(commonFlowers.includes(randomFlower)){
+            coins+=10;
+            }else if(rareFlowers.includes(randomFlower)){
+            coins+=25;
+            }else{
+            coins+=50;
+            }
             if(currentWeather==="rainbow"){
                 coins+=10;
             }
@@ -129,3 +140,19 @@ expandBtn.addEventListener("click",()=>{
     plotsDisplay.textContent=plots;
     saveGame();
 });
+function getRandomFlower(){
+    const chance=Math.random();
+    if (chance<0.70){
+        return commonFlowers[
+            Math.floor(Math.random()*commonFlowers.length)
+        ];
+    } else if (chance<0.95){
+        return rareFlowers[
+            Math.floor(Math.random()*rareFlowers.length)
+        ];
+    } else {
+        return legendaryFlowers[
+            Math.floor(Math.random()*legendaryFlowers.length)
+        ];
+    }
+}
