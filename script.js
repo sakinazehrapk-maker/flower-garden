@@ -3,6 +3,7 @@ const plantBtn = document.getElementById("plantBtn");
 const waterBtn = document.getElementById("waterBtn");
 const countDisplay = document.getElementById("count");
 const coinsDisplay = document.getElementById("coins");
+const album = document.getElementById("album");
 
 let coins = 0;
 const flowers = [];
@@ -30,6 +31,10 @@ waterBtn.addEventListener("click", () => {
             const randomFlower=
                 flowerTypes[Math.floor(Math.random() * flowerTypes.length)];
             flower.textContent=randomFlower;
+            if (!discoveredFlowers.includes(randomFlower)) {
+                discoveredFlowers.push(randomFlower);
+                updateAlbum();
+            }
             flowerCount++;
             countDisplay.textContent=flowerCount;
             coins += 10;
@@ -37,3 +42,20 @@ waterBtn.addEventListener("click", () => {
         }
     });
 });
+const discoveredFlowers=[];
+function updateAlbum() {
+    if(discoveredFlowers.length===0){
+        album.textContent=
+        "No flowers discovered yet!";
+        return;
+    }
+    album.innerHTML="";
+    discoveredFlowers.forEach(flower => {
+        const flowerCard=
+        document.createElement("span");
+        flowerCard.textContent=flower;
+        flowerCard.style.fontSize="40px";
+        flowerCard.style.margin="10px";
+        album.appendChild(flowerCard);
+    });
+}
