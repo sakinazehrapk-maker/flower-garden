@@ -71,3 +71,34 @@ h1{
     transform: translateY(100vh);
   }
 }
+#butterfly-container{
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    overflow:hidden;
+}
+
+.butterfly{
+    position:absolute;
+    font-size:30px;
+    animation:
+        flyAcross 12s linear forwards,
+        flap 0.4s infinite alternate;
+}
+@keyframes flyAcross{
+    from{
+        left:-50px;
+    }
+    to{
+        left:110vw;
+    }
+}
+
+@keyframes flap{
+    from{
+        transform:translateY(-5px);
+    }
+    to{
+        transform:translateY(5px);
+    }
+}

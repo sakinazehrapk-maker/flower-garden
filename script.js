@@ -9,6 +9,7 @@ const plotsDisplay = document.getElementById("plots");
 const expandBtn= document.getElementById("expandBtn");
 const achievementsDiv=document.getElementById("achievements");
 const rainContainer=document.getElementById("rain-container");
+const butterflyContainer=document.getElementById("butterfly-container");
 
 let plots=Number(localStorage.getItem("plots"))||1;
 plotsDisplay.textContent=plots;
@@ -224,4 +225,20 @@ function createRain(){
 function removeRain(){
     rainContainer.innerHTML ="";
 }
-65656565656
+function spawnButterfly(){
+    const butterfly=
+    document.createElement("div");
+    butterfly.classList.add("butterfly");
+    butterfly.textContent="🦋";
+    butterfly.style.top=
+    Math.random()*70+"vh";
+    butterflyContainer.appendChild(butterfly);
+    setTimeout(()=>{
+        butterfly.remove();
+    },12000);
+}
+setInterval(()=>{
+    if(flowers.length>0){
+        spawnButterfly();
+    }
+},15000);
