@@ -233,6 +233,12 @@ function spawnButterfly(){
     butterfly.style.top=
     Math.random()*70+"vh";
     butterflyContainer.appendChild(butterfly);
+    butterfly.addEventListener("click",()=>{
+    coins += 20;
+    coinsDisplay.textContent=coins;
+    butterfly.remove();
+    saveGame();
+});
     setTimeout(()=>{
         butterfly.remove();
     },12000);

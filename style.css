@@ -74,7 +74,7 @@ h1{
 #butterfly-container{
     position:fixed;
     inset:0;
-    pointer-events:none;
+    pointer-events:auto;
     overflow:hidden;
 }
 
