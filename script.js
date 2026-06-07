@@ -10,6 +10,12 @@ const expandBtn= document.getElementById("expandBtn");
 const achievementsDiv=document.getElementById("achievements");
 const rainContainer=document.getElementById("rain-container");
 const butterflyContainer=document.getElementById("butterfly-container");
+const seedCountDisplay=document.getElementById("seedCount");
+const buySeedsBtn=document.getElementById("buySeedsBtn");
+
+let seeds=Number(localStorage.getItem("seeds"))||3;
+
+seedCountDisplay.textContent = seeds;
 
 let plots=Number(localStorage.getItem("plots"))||1;
 plotsDisplay.textContent=plots;
@@ -43,15 +49,22 @@ const weatherTypes=[
 let currentWeather="sunny";
 let flowerCount = 0;
 plantBtn.addEventListener("click",()=>{
-    if (flowers.length >= plots * 5){
+    if(seeds<=0){
+        alert("you have no seeds!");
+        return;
+    }
+    if(flowers.length>=plots*5){
         alert("no more space! buy more garden plots please");
         return;
     }
+    seeds--;
+    seedCountDisplay.textContent=seeds;
     const flower=document.createElement("div");
     flower.classList.add("flower");
     flower.textContent="🌱";
     garden.appendChild(flower);
     flowers.push(flower);
+    saveGame();
 });
 waterBtn.addEventListener("click", () => {
     flowers.forEach(flower=>{
@@ -105,6 +118,7 @@ function saveGame(){
     const gardenData=flowers.map(f=>f.textContent);
     localStorage.setItem("garden",JSON.stringify(gardenData));
     localStorage.setItem("plots",plots);
+    localStorage.setItem("seeds", seeds);
 }
 
 const savedAlbum=
@@ -248,3 +262,19 @@ setInterval(()=>{
         spawnButterfly();
     }
 },15000);
+buySeedsBtn.addEventListener("click",()=>{
+    if(coins<25){
+        alert("not enough coins!");
+        return;
+    }
+    coins-=25;
+    coinsDisplay.textContent=coins;
+    seeds+=5;
+    seedCountDisplay.textContent=seeds;
+    saveGame();
+});
+if(seeds>= 0){
+    unlockAchievement(
+        "seed collector"
+    );
+}
