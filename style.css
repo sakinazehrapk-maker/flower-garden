@@ -47,28 +47,27 @@ h1{
     color:white;
 }
 
-.rainy::before{
-    content:"";
+#rain-container{
     position:fixed;
     inset:0;
     pointer-events:none;
-
-    background:
-    repeating-linear-gradient(
-        -25deg,
-        transparent 0px,
-        transparent 25px,
-        rgba(255,255,255,0.35) 25px,
-        rgba(255,255,255,0.35) 27px
-    );
-
-    animation: rain 0.3s linear infinite;
+    overflow:hidden;
+    z-index:999;
 }
-@keyframes rain{
-    from{
-        transform: translateY(-100px);
-    }
-    to{
-        transform: translateY(100px);
-    }
+.raindrop{
+  position:absolute;
+  width:3px;
+  height:15px;
+  transform:rotate(15deg);
+  background:rgba(255,255,255,0.3);
+  animation:rainFall linear infinite;
+}
+
+@keyframes rainFall{
+  from {
+    transform: translateY(-100px);
+  }
+  to {
+    transform: translateY(100vh);
+  }
 }

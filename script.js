@@ -8,6 +8,7 @@ const weatherDisplay = document.getElementById("weather");
 const plotsDisplay = document.getElementById("plots");
 const expandBtn= document.getElementById("expandBtn");
 const achievementsDiv=document.getElementById("achievements");
+const rainContainer=document.getElementById("rain-container");
 
 let plots=Number(localStorage.getItem("plots"))||1;
 plotsDisplay.textContent=plots;
@@ -133,6 +134,11 @@ function changeWeather(){
         "rainbow",
         "storm"
     );
+    if(currentWeather === "rainy"){
+    createRain();
+    }else{
+        removeRain();
+    }
     document.body.classList.add(currentWeather);
 }
 expandBtn.addEventListener("click",()=>{
@@ -200,3 +206,22 @@ if(plots>=3){
 }
 document.body.classList.add(currentWeather);
 setInterval(changeWeather, 10000);
+function createRain(){
+    rainContainer.innerHTML="";
+    for(let i=0; i<100; i++){
+        const drop=
+        document.createElement("div");
+        drop.classList.add("raindrop");
+        drop.style.left=
+        Math.random()*100+"vw";
+        drop.style.animationDuration=
+        (Math.random()*0.5+0.5)+"s";
+        drop.style.animationDelay=
+        Math.random()*2 +"s";
+        rainContainer.appendChild(drop);
+    }
+}
+function removeRain(){
+    rainContainer.innerHTML ="";
+}
+65656565656
