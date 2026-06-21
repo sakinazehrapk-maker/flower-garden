@@ -273,7 +273,7 @@ buySeedsBtn.addEventListener("click",()=>{
     seedCountDisplay.textContent=seeds;
     saveGame();
 });
-if(seeds>= 0){
+if(seeds>= 20){
     unlockAchievement(
         "seed collector"
     );
